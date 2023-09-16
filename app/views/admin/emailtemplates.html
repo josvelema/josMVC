@@ -1,0 +1,45 @@
+{% extends admin/layout.html %}
+
+{% block title %}Email Template{% endblock %}
+
+{% block content %}
+<form action="" method="post" enctype="multipart/form-data">
+
+    <div class="content-title responsive-flex-wrap responsive-pad-bot-3">
+        <h2 class="responsive-width-100">Email Templates</h2>
+        <input type="submit" name="submit" value="Save" class="btn">
+    </div>
+
+    {% if ($msg): %}
+    <div class="msg success">
+        <i class="fas fa-check-circle"></i>
+        <p>{{ $msg }}</p>
+        <i class="fas fa-times"></i>
+    </div>
+    {% endif; %}
+
+    <div class="content-block">
+
+        <div class="form responsive-width-100">
+
+            {% if ($activation_email_template): %}
+            <label for="activation_email_template">Activation Email Template</label>
+            <textarea id="activation_email_template" name="activation_email_template">{{ $activation_email_template }}</textarea>
+            {% endif; %}
+    
+            {% if ($twofactor_email_template): %}
+            <label for="twofactor_email_template">Two-factor Email Template</label>
+            <textarea id="twofactor_email_template" name="twofactor_email_template">{{ $twofactor_email_template }}</textarea>
+            {% endif; %}
+
+            {% if ($resetpass_email_template): %}
+            <label for="resetpass_email_template">Reset Password Email Template</label>
+            <textarea id="resetpass_email_template" name="resetpass_email_template">{{ $resetpass_email_template }}</textarea>
+            {% endif; %}
+
+        </div>
+
+    </div>
+
+</form>
+{% endblock %}

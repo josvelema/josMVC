@@ -1,0 +1,45 @@
+{% extends admin/layout.html %}
+
+{% block title %}Roles{% endblock %}
+
+{% block content %}
+<div class="content-title">
+    <div class="title">
+        <i class="fas fa-list"></i>
+        <div class="txt">
+            <h2>Roles</h2>
+            <p>View, edit, and create accounts.</p>
+        </div>
+    </div>
+</div>
+
+<div class="content-block">
+    <div class="table">
+        <table>
+            <thead>
+                <tr>
+                    <td>Role</td>
+                    <td>Total Accounts</td>
+                    <td>Active Accounts</td>
+                    <td>Inactive Accounts</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% if (!$roles['roles']): %}
+                <tr>
+                    <td colspan="8" style="text-align:center;">There are no roles</td>
+                </tr>
+                {% endif; %}
+                {% foreach ($roles['roles'] as $k => $v): %}
+                <tr>
+                    <td>{{ $k }}</td>
+                    <td><a href="{% url admin/accounts %}/////{{ $k }}/ASC/id/1" class="link1">{{ number_format($v) }}</a></td>
+                    <td><a href="{% url admin/accounts %}///active//{{ $k }}/ASC/id/1" class="link1">{{ number_format(isset($roles['active'][$k]) ? $roles['active'][$k] : 0) }}</a></td>
+                    <td><a href="{% url admin/accounts %}///inactive//{{ $k }}/ASC/id/1" class="link1">{{ number_format(isset($roles['inactive'][$k]) ? $roles['inactive'][$k] : 0) }}</a></td>
+                </tr>
+                {% endforeach; %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

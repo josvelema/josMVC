@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,minimum-scale=1">
+        <title>{% yield title %}</title>
+        <link href="{% static admin.css %}" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    </head>
+    <body class="admin">
+        <aside class="responsive-width-100 responsive-hidden">
+            <h1>Admin</h1>
+            <a href="{% url admin %}"{{ $selected == 'dashboard' ? ' class="selected"' : '' }}><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+            <a href="{% url admin/accounts %}"{{ $selected == 'accounts' ? ' class="selected"' : '' }}><i class="fas fa-users"></i>Accounts</a>
+            <div class="sub">
+                <a href="{% url admin/accounts %}"{{ $selected == 'accounts' && $selected_child == 'view' ? ' class="selected"' : '' }}><span>&#9724;</span>View Accounts</a>
+                <a href="{% url admin/account %}"{{ $selected == 'accounts' && $selected_child == 'manage' ? ' class="selected"' : '' }}><span>&#9724;</span>Create Account</a>
+            </div>
+            <a href="{% url admin/roles %}"{{ $selected == 'roles' ? ' class="selected"' : '' }}><i class="fas fa-list"></i>Roles</a>
+            <a href="{% url admin/emailtemplates %}"{{ $selected == 'emailtemplate' ? ' class="selected"' : '' }}><i class="fas fa-envelope"></i>Email Templates</a>
+            <a href="{% url admin/settings %}"{{ $selected == 'settings' ? ' class="selected"' : '' }}><i class="fas fa-tools"></i>Settings</a>
+            <div class="footer">
+                <a href="https://codeshack.io/package/php/advanced-secure-login-registration-system/" target="_blank">Advanced Login & Registration</a>
+                Version 2.0.1
+            </div>
+        </aside>
+        <main class="responsive-width-100">
+            <header>
+                <a class="responsive-toggle" href="#">
+                    <i class="fas fa-bars"></i>
+                </a>
+                <div class="space-between"></div>
+                <div class="dropdown right">
+                    <i class="fas fa-user-circle"></i>
+                    <div class="list">
+                        <a href="{% url admin/account %}/{{ $_SESSION['id'] }}">Edit Profile</a>
+                        <a href="{% url logout %}">Logout</a>
+                    </div>
+                </div>
+            </header>
+            {% yield content %}
+        </main>
+        <script src="{% static admin.js %}"></script>
+    </body>
+</html>

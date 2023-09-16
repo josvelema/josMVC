@@ -1,0 +1,68 @@
+{% extends layout.html %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+<div class="login">
+
+    <h1>Login</h1>
+
+    <div class="links">
+        <a href="{% url login %}" class="active">Login</a>
+        <a href="{% url register %}">Register</a>
+    </div>
+
+    <form action="{% url authenticate %}" method="post">
+
+        <input type="hidden" name="token" value="{{ $token }}">
+
+        <label for="username">
+            <i class="fas fa-user"></i>
+        </label>
+        <input type="text" name="username" placeholder="Username" id="username" required>
+
+        <label for="password">
+            <i class="fas fa-lock"></i>
+        </label>
+        <input type="password" name="password" placeholder="Password" id="password" required>
+
+        <label id="rememberme">
+            <input type="checkbox" name="rememberme">Remember me
+        </label>
+
+        <a href="{% url forgotpassword %}">Forgot Password?</a>
+
+        {% if (google_oauth_enabled): %}
+        <a href="{% url googleoauth %}" class="gl-btn"><i class="fa-brands fa-google"></i>Login with Google</a>
+        {% endif; %}
+
+        {% if (facebook_oauth_enabled): %}
+        <a href="{% url facebookoauth %}" class="fb-btn"><i class="fa-brands fa-google"></i>Login with Facebook</a>
+        {% endif; %}
+
+        <div class="msg"></div>
+
+        <input type="submit" value="Login">
+
+    </form>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+let loginForm = document.querySelector('.login form');
+loginForm.onsubmit = event => {
+    event.preventDefault();
+    fetch(loginForm.action, { method: 'POST', body: new FormData(loginForm) }).then(response => response.text()).then(result => {
+        if (result.toLowerCase().includes('success')) {
+            window.location.href = 'home';
+        } else if (result.includes('tfa:')) {
+            window.location.href = result.replace('tfa: ', '');
+        } else {
+            document.querySelector('.msg').innerHTML = result;
+        }
+    });
+};
+</script>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends layout.html %}
+
+{% block title %}Activate Account{% endblock %}
+
+{% block body %}
+<div class="login">
+    <h1>Activate Account</h1>
+    {% if ($activated): %}
+    <p style="padding:20px">Your account is now activated, you can now login!<br><a href="index.php">Login</a></p>
+    {% else: %}
+    <p style="padding:20px">The account is already activated or doesn't exist!</p>
+    {% endif; %}
+</div>
+{% endblock %}

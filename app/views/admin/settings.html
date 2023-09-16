@@ -1,0 +1,35 @@
+{% extends admin/layout.html %}
+
+{% block title %}Settings{% endblock %}
+
+{% block content %}
+<form action="" method="post">
+
+    <div class="content-title responsive-flex-wrap responsive-pad-bot-3">
+        <h2 class="responsive-width-100">Settings</h2>
+        <input type="submit" name="submit" value="Save" class="btn">
+    </div>
+
+    {% if ($msg): %}
+    <div class="msg success">
+        <i class="fas fa-check-circle"></i>
+        <p>{{ $msg }}</p>
+        <i class="fas fa-times"></i>
+    </div>
+    {% endif; %}
+
+    {{ Admin::format_tabs($contents) }}
+    <div class="content-block">
+        <div class="form responsive-width-100">
+            {{ Admin::format_form($contents) }}
+        </div>
+    </div>
+
+</form>
+
+<script>
+document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+    checkbox.onclick = () => checkbox.value = checkbox.checked ? 'true' : 'false';
+});
+</script>
+{% endblock %}

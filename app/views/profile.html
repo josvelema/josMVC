@@ -1,0 +1,39 @@
+{% extends layout2.html %}
+
+{% block title %}Profile{% endblock %}
+
+{% block body %}
+<div class="content profile">
+
+    <h2>Profile Page</h2>
+
+    <div class="block">
+
+        <p>Your account details are below.</p>
+
+        <div class="profile-detail">
+            <strong>Username</strong>
+            {{ $account->info('username') }}
+        </div>
+
+        <div class="profile-detail">
+            <strong>Email</strong>
+            {{ $account->info('email') }}
+        </div>
+
+        <div class="profile-detail">
+            <strong>Role</strong>
+            {{ $account->info('role') }}
+        </div>
+
+        <div class="profile-detail">
+            <strong>Registered</strong>
+            {{ $account->info('registered') }}
+        </div>
+
+        <a class="profile-btn" href="{% url profile/edit %}">Edit Details</a>
+
+    </div>
+
+</div>
+{% endblock %}
